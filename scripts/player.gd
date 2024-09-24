@@ -22,14 +22,17 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
 	# Handle animations.
-	if direction != 0:
-		animated_sprite.play("run") # Play "run" when moving.
+	if is_on_floor():
+		if direction != 0:
+			animated_sprite.play("run") # Play "run" when moving.
+		else:
+			animated_sprite.play("idle") # Play "idle" when standing still.
 	else:
-		animated_sprite.play("idle") # Play "idle" when standing still.
+		animated_sprite.play("jump") # Play "jump"
 
 	# Flip the sprite based on movement direction.
 	if direction < 0:
-		animated_sprite.flip_h = true  # Flip left.
+		animated_sprite.flip_h = true  # Face left.
 	elif direction > 0:
 		animated_sprite.flip_h = false # Face right.
 		
